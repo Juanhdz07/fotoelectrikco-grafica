@@ -36,12 +36,12 @@ datos = {
     },
 }
 
-# Amarillo con distintos marcadores para cada ángulo
+# Colores y marcadores bien diferenciados para cada ángulo
 ESTILOS = {
-    r"$\theta = 0$": {"color": "#ffbf00", "marker": "o"},
-    r"$\theta = \pi/2$": {"color": "#e6ac00", "marker": "s"},
-    r"$\theta = 7\pi/4$": {"color": "#ffd633", "marker": "^"},
-    r"$\theta = \pi/4$": {"color": "#cc9900", "marker": "D"},
+    r"$\theta = 0$": {"color": "#1f77b4", "marker": "o"},       # azul
+    r"$\theta = \pi/2$": {"color": "#d62728", "marker": "s"},   # rojo
+    r"$\theta = 7\pi/4$": {"color": "#2ca02c", "marker": "^"},  # verde
+    r"$\theta = \pi/4$": {"color": "#9467bd", "marker": "D"},    # morado
 }
 
 plt.rcParams.update({
