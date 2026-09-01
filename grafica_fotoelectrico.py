@@ -8,8 +8,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Corriente en A (valores de la tabla multiplicados por 10^-8)
-I = np.array([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0], dtype=float) * 1e-8
+# Corriente: valores de la tabla (todos en unidades de 10^-8 A)
+I_TABLA = np.array([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0], dtype=float)
+I = I_TABLA * 1e-8  # corriente en amperios (A)
 
 # Voltajes en V
 datos = {
@@ -45,10 +46,9 @@ fig, ax = plt.subplots(figsize=(9, 6))
 for nombre, voltaje in datos.items():
     ax.errorbar(
         voltaje,
-        I,
+        I_TABLA,
         xerr=DELTA_V,
-        yerr=DELTA_I,
-        fmt="o",
+        yerr=DELTA_I / 1e-8,  # incertidumbre en unidades de la tabla (×10^-8 A)        fmt="o",
         color=COLORES[nombre],
         ecolor=COLORES[nombre],
         elinewidth=1.2,
@@ -59,11 +59,10 @@ for nombre, voltaje in datos.items():
     )
 
 ax.set_xlabel(r"Voltaje $V$ (V)")
-ax.set_ylabel(r"Intensidad / corriente $I$ (A)")
+ax.set_ylabel(r"Corriente $I$ ($\times 10^{-8}\,\mathrm{A}$)")
 ax.set_title("Efecto fotoeléctrico: intensidad vs voltaje")
 ax.grid(True, linestyle="--", alpha=0.4)
 ax.legend(title="Color de luz", loc="best")
-ax.ticklabel_format(axis="y", style="scientific", scilimits=(0, 0))
 
 plt.tight_layout()
 plt.savefig("intensidad_vs_voltaje.png", dpi=300, bbox_inches="tight")
