@@ -19,3 +19,12 @@ python grafica_fotoelectrico.py
 ```
 
 Genera `intensidad_vs_voltaje.png` y `intensidad_vs_voltaje.pdf`.
+
+### Luz amarilla a distintos ángulos
+
+```bash
+python grafica_amarillo_angulos.py
+```
+
+Genera `amarillo_angulos_vs_voltaje.png` y `amarillo_angulos_vs_voltaje.pdf` para los ángulos
+$\theta = 0$, $\pi/2$, $7\pi/4$ y $\pi/4$.
