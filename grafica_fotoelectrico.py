@@ -48,7 +48,9 @@ for nombre, voltaje in datos.items():
         voltaje,
         I_TABLA,
         xerr=DELTA_V,
-        yerr=DELTA_I / 1e-8,  # incertidumbre en unidades de la tabla (×10^-8 A)        fmt="o",
+        yerr=DELTA_I / 1e-8,  # incertidumbre en unidades de la tabla (×10^-8 A)
+        fmt="o",
+        linestyle="none",
         color=COLORES[nombre],
         ecolor=COLORES[nombre],
         elinewidth=1.2,
