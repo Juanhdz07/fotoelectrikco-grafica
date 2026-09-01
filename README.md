@@ -28,3 +28,13 @@ python grafica_amarillo_angulos.py
 
 Genera `amarillo_angulos_vs_voltaje.png` y `amarillo_angulos_vs_voltaje.pdf` para los ángulos
 $\theta = 0$, $\pi/2$, $7\pi/4$ y $\pi/4$.
+
+### Energía cinética vs frecuencia (cuatro colores)
+
+```bash
+python grafica_energia_cinetica_vs_frecuencia.py
+```
+
+Genera `energia_cinetica_eV_vs_frecuencia.png/.pdf` y `energia_cinetica_J_vs_frecuencia.png/.pdf`.
+La frecuencia se calcula con $f = c/\lambda$ a partir de longitudes de onda teóricas del Hg;
+$K_{\max}$ se obtiene del potencial de frenado experimental ($I = 0$).
