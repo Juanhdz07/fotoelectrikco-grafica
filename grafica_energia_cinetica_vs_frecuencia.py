@@ -1,7 +1,7 @@
 """
 Energía cinética máxima vs frecuencia para los cuatro colores del efecto fotoeléctrico.
 
-La frecuencia se obtiene de longitudes de onda teóricas (líneas espectrales del Hg).
+La frecuencia se obtiene de los picos de emisión de los LED (Oostra).
 La energía cinética se obtiene del potencial de frenado medido (I = 0 en las tablas).
 """
 
@@ -15,18 +15,17 @@ C = 299792458.0                    # m/s
 E_CHARGE = 1.602176634e-19         # C
 EV_TO_J = E_CHARGE                 # 1 eV en joules
 
-# Incertidumbres experimentales
+# Incertidumbres
 DELTA_V = 0.001                    # V (voltímetro)
-DELTA_LAMBDA_NM = 0.1              # nm (incertidumbre en λ teórica de la línea)
+FWHM_NM = 30.0                     # nm (ancho de los picos LED)
+SIGMA_LAMBDA_NM = FWHM_NM / 2.35   # σ_λ = FWHM / 2.35
 
-# Longitudes de onda teóricas (nm) — líneas del vapor de mercurio usadas en laboratorio
-# Azul: 435.8 nm | Verde: 546.1 nm | Amarillo: 577.0–579.1 nm (promedio 578.0)
-# Rojo: filtro rojo típico ~700 nm (Hg no tiene línea roja intensa)
+# Picos de emisión de los LED (nm), medidos por Benjamín Oostra
 LAMBDA_NM = {
-    "Azul": 435.8,
-    "Verde": 546.1,
-    "Amarillo": 578.0,
-    "Rojo": 700.0,
+    "Azul": 469.0,
+    "Verde": 567.0,
+    "Amarillo": 590.0,  # LED ámbar
+    "Rojo": 659.0,
 }
 
 # Potencial de frenado |V_s| en V (dato experimental, I = 0)
@@ -53,11 +52,11 @@ def calcular_datos():
     for nombre in ORDEN:
         lam_nm = LAMBDA_NM[nombre]
         lam_m = lam_nm * 1e-9
-        delta_lam_m = DELTA_LAMBDA_NM * 1e-9
+        sigma_lam_m = SIGMA_LAMBDA_NM * 1e-9
 
-        # f = c / λ
+        # f = c / λ ;  σ_f = (f/λ) σ_λ
         f = C / lam_m
-        delta_f = (C / lam_m**2) * delta_lam_m
+        delta_f = (f / lam_m) * sigma_lam_m
 
         # K_max = e * V_s  (J)  ;  K_max (eV) = V_s
         v_s = V_STOP[nombre]

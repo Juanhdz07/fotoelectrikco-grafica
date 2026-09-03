@@ -36,5 +36,6 @@ python grafica_energia_cinetica_vs_frecuencia.py
 ```
 
 Genera `energia_cinetica_eV_vs_frecuencia.png/.pdf` y `energia_cinetica_J_vs_frecuencia.png/.pdf`.
-La frecuencia se calcula con $f = c/\lambda$ a partir de longitudes de onda teóricas del Hg;
+La frecuencia se calcula con $f = c/\lambda$ a partir de los picos LED
+(azul 469 nm, verde 567 nm, ámbar 590 nm, rojo 659 nm; FWHM $\approx 30$ nm).
 $K_{\max}$ se obtiene del potencial de frenado experimental ($I = 0$).
