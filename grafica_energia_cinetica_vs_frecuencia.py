@@ -90,13 +90,11 @@ def graficar_con_residuales(datos, unidad, archivo_base):
         sigma_k = np.array([d["sigma_k_ev"] for d in datos])
         ylab = r"$K_{\max}$ (eV)"
         ylab_res = r"Residuo $r$ (eV)"
-        factor = 1.0
     else:
         k = np.array([d["k_j"] for d in datos])
         sigma_k = np.array([d["sigma_k_j"] for d in datos])
         ylab = r"$K_{\max}$ (J)"
         ylab_res = r"Residuo $r$ (J)"
-        factor = E_CHARGE
 
     m, b, sigma_m, sigma_b, k_pred, residuales = regresion_ponderada(f, k, sigma_k)
 
@@ -132,10 +130,16 @@ def graficar_con_residuales(datos, unidad, archivo_base):
     k_line = m * f_line + b
     ax.plot(
         f_line, k_line, color="black", linewidth=1.8, zorder=1,
-        label=rf"$K = mf + b$" + "\n"
-              + rf"$h=({h/factor:.3e}\pm{sigma_m/factor:.1e})$ "
-              + (r"eV$\cdot$s" if unidad == "eV" else r"J$\cdot$s") + "\n"
-              + rf"$f_0=({f0/1e14:.3f}\pm{sigma_f0/1e14:.3f})\times 10^{{14}}$ Hz",
+        label=(
+            rf"$K = mf + b$" + "\n"
+            + (
+                rf"$h=({h:.3e}\pm{sigma_m:.1e})$ eV$\cdot$s"
+                if unidad == "eV"
+                else rf"$h=({h:.3e}\pm{sigma_m:.1e})$ J$\cdot$s"
+            )
+            + "\n"
+            + rf"$f_0=({f0/1e14:.3f}\pm{sigma_f0/1e14:.3f})\times 10^{{14}}$ Hz"
+        ),
     )
 
     # Marcar f0 (corte con K=0)
