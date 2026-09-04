@@ -137,12 +137,15 @@ def graficar_con_residuales(datos, unidad, archivo_base):
         label=(
             rf"$K = mf + b$" + "\n"
             + (
-                rf"$h=({h:.3e}\pm{sigma_m:.1e})$ eV$\cdot$s"
+                rf"$m=({m:.3e}\pm{sigma_m:.1e})$ eV$\cdot$s" + "\n"
+                + rf"$b=({b:.3f}\pm{sigma_b:.3f})$ eV"
                 if unidad == "eV"
-                else rf"$h=({h:.3e}\pm{sigma_m:.1e})$ J$\cdot$s"
+                else
+                rf"$m=({m:.3e}\pm{sigma_m:.1e})$ J$\cdot$s" + "\n"
+                + rf"$b=({b:.3e}\pm{sigma_b:.1e})$ J"
             )
             + "\n"
-            + rf"$f_0=({f0/1e14:.3f}\pm{sigma_f0/1e14:.3f})\times 10^{{14}}$ Hz"
+            + rf"$f_0=-b/m=({f0/1e14:.3f}\pm{sigma_f0/1e14:.3f})\times 10^{{14}}$ Hz"
         ),
     )
 
