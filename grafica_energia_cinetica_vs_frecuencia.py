@@ -123,13 +123,17 @@ def graficar_con_residuales(datos, unidad, archivo_base):
         gridspec_kw={"height_ratios": [2.4, 1], "hspace": 0.05},
     )
 
-    # Recta de regresión
-    f_line = np.linspace(min(f) - 0.15 * (max(f) - min(f)),
-                         max(f) + 0.05 * (max(f) - min(f)), 200)
-    # restringir a K >= 0 para visualización física en el trazo principal
+    # Recta de regresión (naranja, punteada), extendida hasta K = 0
+    f_min = min(f0, min(f)) * 0.98 if f0 > 0 else min(f) * 0.95
+    f_max = max(f) * 1.03
+    f_line = np.linspace(f_min, f_max, 300)
     k_line = m * f_line + b
     ax.plot(
-        f_line, k_line, color="black", linewidth=1.8, zorder=1,
+        f_line, k_line,
+        color="#ff7f0e",
+        linestyle=":",
+        linewidth=2.2,
+        zorder=1,
         label=(
             rf"$K = mf + b$" + "\n"
             + (
@@ -142,12 +146,12 @@ def graficar_con_residuales(datos, unidad, archivo_base):
         ),
     )
 
-    # Marcar f0 (corte con K=0)
+    # Corte en K = 0 (f0)
     if f0 > 0:
-        ax.axvline(f0, color="gray", linestyle=":", linewidth=1.2, alpha=0.8)
-        ax.axhline(0, color="gray", linestyle=":", linewidth=1.0, alpha=0.6)
-        ax.scatter([f0], [0], color="black", marker="x", s=60, zorder=5,
-                   label=r"$f_0$ ($K=0$)")
+        ax.axhline(0, color="#ff7f0e", linestyle=":", linewidth=1.4, alpha=0.9)
+        ax.axvline(f0, color="#ff7f0e", linestyle=":", linewidth=1.4, alpha=0.7)
+        ax.scatter([f0], [0], color="#ff7f0e", marker="x", s=80, zorder=5,
+                   linewidths=2, label=r"$f_0$ ($K=0$)")
 
     for i, nombre in enumerate(nombres):
         ax.errorbar(
@@ -161,6 +165,9 @@ def graficar_con_residuales(datos, unidad, archivo_base):
 
     ax.set_ylabel(ylab)
     ax.set_title(r"$K_{\max}$ vs $f$ con regresión lineal y residuales")
+    # Asegurar que el eje vertical muestre el corte en K = 0
+    y_top = max(k + sigma_k) * 1.08
+    ax.set_ylim(min(-0.05 * y_top, min(k_line) * 1.05), y_top)
     ax.grid(True, linestyle="--", alpha=0.4)
     ax.legend(loc="best", fontsize=8)
     ax.ticklabel_format(axis="x", style="scientific", scilimits=(0, 0))
